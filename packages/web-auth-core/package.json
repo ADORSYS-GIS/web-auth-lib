@@ -1,0 +1,27 @@
+{
+  "name": "@adorsys-gis/web-auth-core",
+  "version": "1.2.0-rc.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adorsys-gis/web-auth-lib.git",
+    "directory": "packages/web-auth-core"
+  },
+  "packageManager": "yarn@4.9.1",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && rimraf tsconfig.tsbuildinfo && tsc --build"
+  },
+  "author": {
+    "name": "Adorsys GIS",
+    "url": "https://github.com/adorsys-gis"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "license": "MIT",
+  "description": "Core packages for the Web Auth lib"
+}
