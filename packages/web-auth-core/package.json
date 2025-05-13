@@ -7,8 +7,8 @@
     "directory": "packages/web-auth-core"
   },
   "packageManager": "yarn@4.9.1",
-  "main": "dist/src/index.js",
-  "typings": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf dist && rimraf tsconfig.tsbuildinfo && tsc --build"
   },
@@ -16,6 +16,13 @@
     "name": "Adorsys GIS",
     "url": "https://github.com/adorsys-gis"
   },
+  "contributors": [
+    {
+      "name": "Stephane Segning",
+      "email": "selastlambou@gmail.com",
+      "url": "https://github.com/stephane-segning"
+    }
+  ],
   "devDependencies": {
     "@types/node": "^22.15.17",
     "rimraf": "^6.0.1",

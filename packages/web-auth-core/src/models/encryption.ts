@@ -15,4 +15,11 @@ export interface KeyEncryption {
      * @param key
      */
     decryptData(encrypted: ArrayBuffer, key: EncryptionKey): Promise<string>;
+
+    /**
+     * 
+     * @param prfOutput
+     * @param salt
+     */
+    deriveKey(prfOutput: Uint8Array, salt: Uint8Array): Promise<EncryptionKey>;
 }
