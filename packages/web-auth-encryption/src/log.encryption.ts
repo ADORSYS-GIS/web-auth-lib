@@ -21,10 +21,10 @@ export class LogEncryption implements KeyEncryption {
         return result;
     }
 
-    public async deriveKey(prfOutput: Uint8Array, salt: Uint8Array): Promise<EncryptionKey> {
-        this.logger.debug('Will derive Key', salt, prfOutput);
-        const result = await this.delegate.deriveKey(prfOutput, salt);
-        this.logger.debug('Done derivating Key', salt, result);
+    public async generateKeyFromUserId(userId: ArrayBuffer, salt: Uint8Array): Promise<EncryptionKey> {
+        this.logger.debug('Will derive userId', salt, userId);
+        const result = await this.delegate.generateKeyFromUserId(userId, salt);
+        this.logger.debug('Done deriving Key', salt, result);
         return result;
     }
 }

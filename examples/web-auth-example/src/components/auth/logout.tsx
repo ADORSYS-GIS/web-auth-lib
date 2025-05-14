@@ -1,23 +1,14 @@
 import {Button} from "../button/button";
-import {useGetAuthStatus, useLogout} from "../../hooks/hooks.ts";
-import {useCallback} from "react";
-import {X} from "react-feather";
-import {usePrf} from "../../hooks/prf.hooks.ts";
+import {useGetAuthStatus, useLogout} from "../../hooks";
+import {LogOut} from "react-feather";
 
 export function Logout() {
     const {isPending: authPending, data} = useGetAuthStatus();
-    const {updatePrf, updateDerivedKey} = usePrf();
-    const {mutate, isPending} = useLogout();
-    const onClick = useCallback(() => {
-        mutate();
-        updatePrf("");
-        updateDerivedKey();
-    }, [mutate, updatePrf, updateDerivedKey]);
-    
+    const {logOut} = useLogout();
     return (
-        <Button error onClick={onClick} loading={isPending || authPending} soft={data} disabled={!data}>
-            <span>Delete</span>
-            <X/>
+        <Button error onClick={logOut} loading={authPending} soft={data} disabled={!data}>
+            <span>Logout</span>
+            <LogOut/>
         </Button>
-    )
+    );
 }

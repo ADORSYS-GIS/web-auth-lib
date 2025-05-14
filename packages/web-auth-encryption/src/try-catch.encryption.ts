@@ -12,7 +12,7 @@ export class TryCatchEncryption implements KeyEncryption {
             return await this.delegate.decryptData(encrypted, key);
         } catch (error) {
             this.logger.error(error);
-            return Promise.reject(error);
+            throw error;
         }
     }
 
@@ -21,16 +21,16 @@ export class TryCatchEncryption implements KeyEncryption {
             return await this.delegate.encryptData(plaintext, key);
         } catch (error) {
             this.logger.error(error);
-            return Promise.reject(error);
+            throw error;
         }
     }
 
-    public async deriveKey(prfOutput: Uint8Array, salt: Uint8Array): Promise<EncryptionKey> {
+    public async generateKeyFromUserId(userId: ArrayBuffer, salt: Uint8Array): Promise<EncryptionKey> {
         try {
-            return await this.delegate.deriveKey(prfOutput, salt);
+            return await this.delegate.generateKeyFromUserId(userId, salt);
         } catch (error) {
             this.logger.error(error);
-            return Promise.reject(error);
+            throw error;
         }
     }
 }

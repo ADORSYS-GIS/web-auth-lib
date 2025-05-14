@@ -17,13 +17,13 @@ export interface RegisterOption {
 }
 
 export interface CredentialRegistration {
-    credentialId: ArrayBuffer;
     rawCredential: PublicKeyCredential;
+    credentialId: ArrayBuffer;
 }
 
 export interface CredentialAssertion {
     rawCredential: PublicKeyCredential;
-    prfResult: Uint8Array;
+    userHandle: ArrayBuffer;
 }
 
 export type CredentialUser = Partial<Omit<PublicKeyCredentialUserEntity, 'id'>>;

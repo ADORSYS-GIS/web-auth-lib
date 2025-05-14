@@ -1,5 +1,5 @@
 import {Button} from "../button/button";
-import {useGetAuthStatus, useRegister} from "../../hooks/hooks.ts";
+import {useGetAuthStatus, useRegister} from "../../hooks";
 import {useCallback} from "react";
 import {LogIn} from "react-feather";
 

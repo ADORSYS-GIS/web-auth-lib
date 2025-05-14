@@ -59,21 +59,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@adorsys-gis/web-auth-prf@workspace:^, @adorsys-gis/web-auth-prf@workspace:packages/web-auth-prf":
-  version: 0.0.0-use.local
-  resolution: "@adorsys-gis/web-auth-prf@workspace:packages/web-auth-prf"
-  dependencies:
-    "@adorsys-gis/web-auth-core": "workspace:^"
-    "@adorsys-gis/web-auth-credential": "workspace:^"
-    "@adorsys-gis/web-auth-encryption": "workspace:^"
-    "@adorsys-gis/web-auth-logger": "workspace:^"
-    "@types/node": "npm:^22.15.17"
-    rimraf: "npm:^6.0.1"
-    ts-node: "npm:^10.9.2"
-    typescript: "npm:^5.8.3"
-  languageName: unknown
-  linkType: soft
-
 "@adorsys-gis/web-auth-storage@workspace:packages/web-auth-storage":
   version: 0.0.0-use.local
   resolution: "@adorsys-gis/web-auth-storage@workspace:packages/web-auth-storage"
@@ -81,6 +66,21 @@ __metadata:
     "@adorsys-gis/web-auth-core": "workspace:^"
     "@types/node": "npm:^22.15.17"
     base64-arraybuffer: "npm:^1.0.2"
+    rimraf: "npm:^6.0.1"
+    ts-node: "npm:^10.9.2"
+    typescript: "npm:^5.8.3"
+  languageName: unknown
+  linkType: soft
+
+"@adorsys-gis/web-auth@workspace:^, @adorsys-gis/web-auth@workspace:packages/web-auth":
+  version: 0.0.0-use.local
+  resolution: "@adorsys-gis/web-auth@workspace:packages/web-auth"
+  dependencies:
+    "@adorsys-gis/web-auth-core": "workspace:^"
+    "@adorsys-gis/web-auth-credential": "workspace:^"
+    "@adorsys-gis/web-auth-encryption": "workspace:^"
+    "@adorsys-gis/web-auth-logger": "workspace:^"
+    "@types/node": "npm:^22.15.17"
     rimraf: "npm:^6.0.1"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.8.3"
@@ -4342,7 +4342,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web-auth-example@workspace:examples/web-auth-example"
   dependencies:
-    "@adorsys-gis/web-auth-prf": "workspace:^"
+    "@adorsys-gis/web-auth": "workspace:^"
     "@eslint/js": "npm:^9.25.0"
     "@tailwindcss/vite": "npm:^4.1.6"
     "@tanstack/react-query": "npm:^5.76.0"

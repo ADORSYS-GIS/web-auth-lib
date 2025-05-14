@@ -2,17 +2,16 @@ import {
     Credential,
     CredentialAssertion,
     CredentialRegistration,
-    KeyStorage, Logger,
+    KeyStorage,
+    Logger,
     RegisterOption,
 } from "@adorsys-gis/web-auth-core";
 
 export interface CoreCredentialOptions {
     rp: PublicKeyCredentialRpEntity;
     challengeSize?: number;
-    firstSize?: number;
-    extensions?: Omit<PublicKeyCredentialCreationOptions['extensions'], 'prf'>
-    creationOptions?: Omit<PublicKeyCredentialCreationOptions, 'user' | 'extensions' | 'challenge' | 'pubKeyCredParams' | 'rp'>;
-    authenticationOptions?: Omit<PublicKeyCredentialRequestOptions, 'extensions' | 'challenge' | 'rpId' | 'allowCredentials'> & {};
+    creationOptions?: Omit<PublicKeyCredentialCreationOptions, 'user' | 'challenge' | 'pubKeyCredParams' | 'rp'>;
+    authenticationOptions?: Omit<PublicKeyCredentialRequestOptions, 'challenge' | 'rpId' | 'allowCredentials'> & {};
 }
 
 export class CoreCredential implements Credential {
@@ -23,20 +22,16 @@ export class CoreCredential implements Credential {
     ) {
     }
 
-    public async remove(): Promise<void> {
-        await this.storage.remove(this.credentialIdKey);
-    }
-
     protected get credentialIdKey() {
         return "credential_id"
     }
 
-    protected get firstSize() {
-        return this.options.firstSize ?? 24;
-    }
-
     protected get challengeSize() {
         return this.options.challengeSize ?? 12;
+    }
+
+    public async remove(): Promise<void> {
+        await this.storage.remove(this.credentialIdKey);
     }
 
     public async register(options?: RegisterOption): Promise<CredentialRegistration> {
@@ -49,8 +44,9 @@ export class CoreCredential implements Credential {
 
     public async authenticate(): Promise<CredentialAssertion> {
         const authOptions = await this.getAuthOptions();
-        const {rawCredential, prfResult} = await this.getCredential(authOptions);
-        return {rawCredential, prfResult};
+        const rawCredential = await this.getCredential(authOptions);
+        const userHandle = (rawCredential.response as AuthenticatorAssertionResponse).userHandle;
+        return {rawCredential, userHandle};
     }
 
     public async isRegistered(): Promise<boolean> {
@@ -58,7 +54,7 @@ export class CoreCredential implements Credential {
         return !!storedCredentialId?.data;
     }
 
-    protected async getCredential(authOptions: PublicKeyCredentialRequestOptions): Promise<CredentialAssertion> {
+    protected async getCredential(authOptions: PublicKeyCredentialRequestOptions): Promise<PublicKeyCredential> {
         const cred = await navigator.credentials.get({
             publicKey: authOptions,
         });
@@ -67,22 +63,7 @@ export class CoreCredential implements Credential {
             throw new Error("Authentication failed: No assertion returned.");
         }
 
-        const publicCredential = cred as PublicKeyCredential;
-  
-        // Extract the PRF output from extension results.
-        const clientExtResults = publicCredential.getClientExtensionResults();
-        const firstPrf = clientExtResults?.prf?.results?.first;
-        this.logger.debug("Got first PRF", firstPrf);
-        if (!firstPrf) {
-            throw new Error("PRF result missing in the assertion.");
-        }
-
-        const prfResult = new Uint8Array(
-            clientExtResults.prf.results.first as ArrayBuffer,
-        );
-
-        // Use the stored salt and PRF result in key derivation.
-        return {rawCredential: publicCredential, prfResult};
+        return cred as PublicKeyCredential;
     }
 
     protected async createCredential(options: PublicKeyCredentialCreationOptions): Promise<PublicKeyCredential> {
@@ -103,10 +84,9 @@ export class CoreCredential implements Credential {
     }
 
     protected async getRegOptions(options: RegisterOption = {}): Promise<PublicKeyCredentialCreationOptions> {
-        const [challenge, userId, first, pubKeyCredParams] = await Promise.all([
+        const [challenge, userId, pubKeyCredParams] = await Promise.all([
             this.generateSalt(this.challengeSize),
             this.generateSalt(32),
-            this.generateSalt(this.firstSize),
             this.getPubKeyCred(),
         ]);
 
@@ -120,14 +100,6 @@ export class CoreCredential implements Credential {
                 displayName: options.user?.displayName ?? '',
             },
             pubKeyCredParams: pubKeyCredParams,
-            extensions: {
-                ...(this.options.extensions ?? {}),
-                prf: {
-                    eval: {
-                        first: first.buffer
-                    }
-                },
-            },
         };
     }
 
@@ -140,8 +112,7 @@ export class CoreCredential implements Credential {
             {type: "public-key", alg: -36}   // ES512
         ];
     }
-
-    // TODO
+    
     protected async getAllowCredentials(): Promise<PublicKeyCredentialDescriptor[]> {
         const storedCredentialId = await this.storage.get<ArrayBuffer>(this.credentialIdKey);
         return [
@@ -152,14 +123,13 @@ export class CoreCredential implements Credential {
         ];
     }
 
-    protected async generateSalt(size: number): Promise<Uint8Array> {
+    protected async generateSalt(size: number) {
         return crypto.getRandomValues(new Uint8Array(size));
     }
 
     protected async getAuthOptions(): Promise<PublicKeyCredentialRequestOptions> {
-        const [challenge, first, allowCredentials] = await Promise.all([
+        const [challenge, allowCredentials] = await Promise.all([
             this.generateSalt(this.challengeSize),
-            this.generateSalt(this.firstSize),
             this.getAllowCredentials()
         ]);
 
@@ -168,14 +138,6 @@ export class CoreCredential implements Credential {
             challenge: challenge.buffer,
             allowCredentials: allowCredentials,
             rpId: this.options.rp.id,
-            extensions: {
-                ...this.options.extensions,
-                prf: {
-                    eval: {
-                        first: first.buffer
-                    }
-                },
-            },
         };
     }
 

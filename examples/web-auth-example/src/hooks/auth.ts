@@ -1,22 +1,30 @@
-import webAuth from "@adorsys-gis/web-auth-prf";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import webAuth from "@adorsys-gis/web-auth";
+import {LogLevel} from "@adorsys-gis/web-auth-logger";
 import type {RegisterOption} from "@adorsys-gis/web-auth-core";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {useCredentialUserID} from "./credential-user-id.hooks";
 import {encode} from "base64-arraybuffer";
-import {usePrf} from "./prf.hooks.ts";
-import {appToast} from "./toast.ts";
+import {appToast} from "./toast";
+import {useCallback} from "react";
 
 const {credential, encryption, storage} = webAuth({
-    rp: {
-        id: window.location.hostname,
-        name: window.location.hostname,
-    },
-    creationOptions: {
-        authenticatorSelection: {
-            authenticatorAttachment: "platform",
-            residentKey: "required",
-            requireResidentKey: true,
+    credentialOptions: {
+        rp: {
+            id: window.location.hostname,
+            name: window.location.hostname,
         },
-    }
+        creationOptions: {
+            authenticatorSelection: {
+                residentKey: "required",
+                requireResidentKey: true,
+                userVerification: 'required',
+            },
+        },
+    },
+    encryptionOptions: {
+        tagLength: 128,
+    },
+    logLevel: LogLevel.debug,
 });
 
 const saltKey = "salt";
@@ -52,7 +60,7 @@ export function useRegister() {
     })
 }
 
-export function useLogout() {
+export function useDelete() {
     const client = useQueryClient();
     const credential = useCredential();
     const storage = useStorage();
@@ -70,10 +78,20 @@ export function useLogout() {
     })
 }
 
+export function useLogout() {
+    const {setCredentialUserIId, updateDerivedKey} = useCredentialUserID();
+    const logOut = useCallback(() => {
+        setCredentialUserIId("");
+        updateDerivedKey();
+    }, [setCredentialUserIId, updateDerivedKey]);
+
+    return {logOut};
+}
+
 export function useAuthentication() {
     const credential = useCredential();
     const encryption = useKeyEncryption();
-    const {updatePrf, updateDerivedKey} = usePrf();
+    const {setCredentialUserIId, updateDerivedKey} = useCredentialUserID();
     const storage = useStorage();
     return useMutation({
         mutationKey: ['authentication'],
@@ -82,10 +100,10 @@ export function useAuthentication() {
         onError: (err: Error) => {
             appToast('error', {err});
         },
-        onSuccess: async ({prfResult}) => {
+        onSuccess: async ({userHandle}) => {
             const salt = await storage.get<ArrayBuffer>(saltKey);
-            const derivedKey = await encryption.deriveKey(prfResult, new Uint8Array(salt.data));
-            updatePrf(encode(prfResult));
+            const derivedKey = await encryption.generateKeyFromUserId(userHandle, new Uint8Array(salt.data));
+            setCredentialUserIId(encode(userHandle));
             updateDerivedKey(derivedKey.key);
         }
     })

@@ -1,3 +1,3 @@
 export * from './auth';
-export * from './prf.hooks';
+export * from './credential-user-id.hooks';
 export * from './toast';

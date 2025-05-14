@@ -1,15 +1,15 @@
 import {createContext} from "react";
 
 interface PrfState {
-    prf: string;
+    credentialUserId: string;
     derivedKey?: CryptoKey;
-    updatePrf: (prf: string) => void;
+    setCredentialUserIId: (prf: string) => void;
     updateDerivedKey: (derivedKey?: CryptoKey) => void;
 }
 
 export const prfContext = createContext<PrfState>({
-    prf: "",
-    updatePrf: () => {
+    credentialUserId: "",
+    setCredentialUserIId: () => {
     },
     updateDerivedKey: () => {
     },

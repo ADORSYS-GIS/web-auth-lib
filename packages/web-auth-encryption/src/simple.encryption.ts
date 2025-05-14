@@ -11,21 +11,21 @@ export class SimpleEncryption implements KeyEncryption {
         options?: CoreOptions,
         logger: Logger = console,
     ) {
-        const coreEncryption = new CoreEncryption(options);
+        const coreEncryption = new CoreEncryption(options, logger);
         const logEncryption = new LogEncryption(coreEncryption, logger);
         this.delegate = new TryCatchEncryption(logEncryption, logger);
     }
 
-    encryptData(plaintext: string, key: EncryptionKey): Promise<ArrayBuffer> {
+    public async encryptData(plaintext: string, key: EncryptionKey): Promise<ArrayBuffer> {
         return this.delegate.encryptData(plaintext, key);
     }
 
-    decryptData(encrypted: ArrayBuffer, key: EncryptionKey): Promise<string> {
+    public async decryptData(encrypted: ArrayBuffer, key: EncryptionKey): Promise<string> {
         return this.delegate.decryptData(encrypted, key);
     }
 
-    deriveKey(prfOutput: Uint8Array, salt: Uint8Array): Promise<EncryptionKey> {
-        return this.delegate.deriveKey(prfOutput, salt);
+    public async generateKeyFromUserId(userId: ArrayBuffer, salt: Uint8Array): Promise<EncryptionKey> {
+        return this.delegate.generateKeyFromUserId(userId, salt);
     }
 
 }

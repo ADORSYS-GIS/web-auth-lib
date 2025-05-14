@@ -3,4 +3,5 @@ export interface Logger {
     error(...args: any[]): any;
     debug(...args: any[]): any;
     trace(...args: any[]): any;
+    info(...args: any[]): any;
 }

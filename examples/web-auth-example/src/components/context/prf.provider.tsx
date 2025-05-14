@@ -6,7 +6,7 @@ export function PrfProvider({children}: PropsWithChildren) {
     const [derivedKey, updateDerivedKey] = useState<CryptoKey | undefined>();
 
     return (
-        <prfContext.Provider value={{prf, updatePrf, derivedKey, updateDerivedKey}}>
+        <prfContext.Provider value={{credentialUserId: prf, setCredentialUserIId: updatePrf, derivedKey, updateDerivedKey}}>
             {children}
         </prfContext.Provider>
     )

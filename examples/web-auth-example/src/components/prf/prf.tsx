@@ -1,17 +1,17 @@
 import {Key, ThumbsUp} from "react-feather";
-import {usePrf} from "../../hooks/prf.hooks.ts";
+import {useCredentialUserID} from "../../hooks";
 
 export function PrfResult() {
-    const {prf, derivedKey} = usePrf();
+    const {credentialUserId, derivedKey} = useCredentialUserID();
     return (
         <>
             <div className='flex flex-col justify-center gap-4'>
-                {prf && (
+                {credentialUserId && (
                     <div className='flex flex-col gap-1'>
-                        <h3>PRF Result</h3>
-                        <div role='alert' className='alert alert-success' title='Your PRF Token'>
+                        <h3>Credential UserId Result</h3>
+                        <div role='alert' className='alert alert-success' title='Your Credential UserId Token'>
                             <ThumbsUp/>
-                            <p className='overflow-hidden truncate w-full'>{prf}</p>
+                            <p className='overflow-hidden truncate w-full'>{credentialUserId}</p>
                         </div>
                     </div>
                 )}

@@ -1,4 +1,4 @@
-# WebAuthn PRF Example
+# WebAuthn Auth Example
 
 
 ## Links
