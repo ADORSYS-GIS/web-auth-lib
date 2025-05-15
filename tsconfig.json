@@ -2,6 +2,9 @@
   "files": [],
   "references": [
     {
+      "path": "examples/web-auth-example"
+    },
+    {
       "path": "packages/web-auth-core"
     },
     {
@@ -15,6 +18,9 @@
     },
     {
       "path": "packages/web-auth"
+    },
+    {
+      "path": "packages/web-auth-logger"
     }
   ]
 }
