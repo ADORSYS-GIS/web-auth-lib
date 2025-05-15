@@ -97,7 +97,3 @@ The `webAuth` function returns an object with four properties:
 - `encryption`: An instance of `KeyEncryption` for key management.
 - `storage`: An instance of `KeyStorage` for storing keys.
 - `logger`: An instance of `Logger` for logging.
-
-## Links
-
-- [Bitwarden Community Discussion](https://community.bitwarden.com/t/support-for-storing-prf-capable-passkeys-in-bitwarden-vault/82239/10)
