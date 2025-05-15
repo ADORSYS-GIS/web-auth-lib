@@ -14,7 +14,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm -ws run build",
+    "build": "yarn workspaces foreach -t -R run build",
     "prettier": "prettier --write .",
     "prepare": "husky"
   },

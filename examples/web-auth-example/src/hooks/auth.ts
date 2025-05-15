@@ -103,7 +103,11 @@ export function useAuthentication() {
     onError: (err: Error) => {
       appToast('error', { err: err.message });
     },
-    onSuccess: async ({ userHandle }) => {
+    onSuccess: async (data: unknown) => {
+      if (!data || typeof data !== 'object' || !('userHandle' in data)) {
+        throw new Error('Invalid data received in onSuccess handler');
+      }
+      const { userHandle } = data as { userHandle: any };
       const salt = await storage.get<ArrayBuffer>(saltKey);
       const derivedKey = await encryption.generateKeyFromUserId(userHandle, new Uint8Array(salt.data));
       setCredentialUserIId(encode(userHandle));
