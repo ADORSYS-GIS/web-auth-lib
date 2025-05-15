@@ -1,11 +1,11 @@
-import {RegisterOption, CredentialAssertion, CredentialRegistration} from "./key";
+import { RegisterOption, CredentialAssertion, CredentialRegistration } from './key';
 
 export interface Credential {
-    register(options?: RegisterOption): Promise<CredentialRegistration>;
-    
-    remove(): Promise<void>;
+  register(options?: RegisterOption): Promise<CredentialRegistration>;
 
-    authenticate(): Promise<CredentialAssertion>;
+  remove(): Promise<void>;
 
-    isRegistered(): Promise<boolean>;
+  authenticate(): Promise<CredentialAssertion>;
+
+  isRegistered(): Promise<boolean>;
 }

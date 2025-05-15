@@ -14,7 +14,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm -ws run build"
+    "build": "npm -ws run build",
+    "prettier": "prettier --write ."
   },
   "description": "A WebAuthn library implementing password-based key derivation functions (PRF) for secure authentication and encryption",
   "keywords": [
@@ -41,5 +42,8 @@
     }
   ],
   "license": "ISC",
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.9.1",
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
 }
