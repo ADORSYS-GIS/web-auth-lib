@@ -107,8 +107,9 @@ export function useAuthentication() {
       if (!data || typeof data !== 'object' || !('userHandle' in data)) {
         throw new Error('Invalid data received in onSuccess handler');
       }
-      const { userHandle } = data as { userHandle: any };
+      const { userHandle } = data as { userHandle: ArrayBuffer };
       const salt = await storage.get<ArrayBuffer>(saltKey);
+      if (!salt?.data) throw new Error('Salt not found or invalid');
       const derivedKey = await encryption.generateKeyFromUserId(userHandle, new Uint8Array(salt.data));
       setCredentialUserIId(encode(userHandle));
       updateDerivedKey(derivedKey.key);
