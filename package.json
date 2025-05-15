@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "build": "npm -ws run build",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "prepare": "husky"
   },
   "description": "A WebAuthn library implementing password-based key derivation functions (PRF) for secure authentication and encryption",
   "keywords": [
@@ -44,6 +45,9 @@
   "license": "ISC",
   "packageManager": "yarn@4.9.1",
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "husky": "^9.1.7",
     "prettier": "^3.5.3"
   }
 }
