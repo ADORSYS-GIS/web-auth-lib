@@ -7,11 +7,14 @@ import { encode } from 'base64-arraybuffer';
 import { appToast } from './toast';
 import { useCallback } from 'react';
 
+const rpId = import.meta.env.VITE_RP_ID || 'example.com';
+const rpName = import.meta.env.VITE_RP_NAME || 'Example RP';
+
 const { credential, encryption, storage } = webAuth({
   credentialOptions: {
     rp: {
-      id: window.location.hostname,
-      name: window.location.hostname,
+      id: rpId,
+      name: rpName,
     },
     creationOptions: {
       authenticatorSelection: {
