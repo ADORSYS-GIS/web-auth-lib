@@ -7434,6 +7434,8 @@ __metadata:
   resolution: "web-auth-example@workspace:examples/web-auth-example"
   dependencies:
     "@adorsys-gis/web-auth": "workspace:^"
+    "@adorsys-gis/web-auth-core": "workspace:^"
+    "@adorsys-gis/web-auth-logger": "workspace:^"
     "@eslint/js": "npm:^9.25.0"
     "@tailwindcss/vite": "npm:^4.1.6"
     "@tanstack/react-query": "npm:^5.76.0"
