@@ -30,9 +30,9 @@ const { credential, encryption, storage, logger } = webAuth({
 });
 ```
 
-### Example Usage in a React Hook
+### Example Usage in a React Application
 
-Here's an example of how to use `webAuth` in a React application:
+Here's an example of how to use `webAuth` in a React application, demonstrating the usage of `credential`, `encryption`, and `storage`:
 
 ```typescript
 import webAuth from '@adorsys-gis/web-auth';
@@ -60,9 +60,24 @@ const { credential, encryption, storage } = webAuth({
   },
   logLevel: LogLevel.debug,
 });
+
+// Using the credential interface
+const register = async (params: RegisterOption) => {
+  return credential.register(params);
+};
+
+// Using the encryption interface
+const generateKey = async (userHandle: ArrayBuffer, salt: Uint8Array) => {
+  return encryption.generateKeyFromUserId(userHandle, salt);
+};
+
+// Using the storage interface
+const saveSalt = async (saltKey: string, salt: ArrayBuffer) => {
+  await storage.save(saltKey, { data: salt });
+};
 ```
 
-This example demonstrates initializing `webAuth` with specific options for credential creation and encryption.
+This example demonstrates initializing `webAuth` with specific options for credential creation and encryption, and showcases how to use the `credential`, `encryption`, and `storage` interfaces.
 
 ## Configuration
 
