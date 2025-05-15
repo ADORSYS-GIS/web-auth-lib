@@ -11,7 +11,10 @@ const textType: Record<TypeOptions, string> = {
     default: 'text-dash',
 }
 
-export function Message({closeToast, data, toastProps}: ToastContentProps) {
+export function Message({closeToast, data, toastProps}: ToastContentProps<{ err: string } | { message: string }>) {
+    if (!data) return null;
+
+    const message = 'err' in data ? data.err : data.message;
     const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
@@ -43,24 +46,28 @@ export function Message({closeToast, data, toastProps}: ToastContentProps) {
 
     return (
         <div className='flex gap-4 items-center justify-center'>
-            <span>{data?.err?.message}</span>
+            <span>
+                {message}
+            </span>
 
             <div className='flex gap-2'>
                 <div
                     className={twMerge('radial-progress', [
                         textType[toastProps.type]
                     ])}
-                    style={{
-                        "--thickness": "4px",
-                        "--value": progress, 
-                        "--size": "2rem", 
-                    }}
+                    style={
+                       {
+                           "--thickness": "4px",
+                           "--value": progress,
+                           "--size": "2rem",
+                       } as React.CSSProperties
+                    }
                     aria-valuenow={progress}
                     role="progressbar"
                 >
                 </div>
 
-                <button onClick={closeToast} type='button' className="btn btn-sm btn-circle">
+                <button onClick={closeToast} type='button' className="btn btn-sm btn-circle" aria-label="Close toast">
                     <X className="h-6 w-6 shrink-0 stroke-current"/>
                 </button>
             </div>

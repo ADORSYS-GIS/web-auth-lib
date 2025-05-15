@@ -50,7 +50,7 @@ export function useRegister() {
         mutationFn: (params: RegisterOption) => credential.register(params),
         retry: 0,
         onError: (err: Error) => {
-            appToast('error', {err});
+            appToast('error', {err: err.message});
         },
         onSuccess: async () => {
             const salt = crypto.getRandomValues(new Uint8Array(32)).buffer;
@@ -69,7 +69,7 @@ export function useDelete() {
         mutationFn: () => credential.remove(),
         retry: 0,
         onError: (err: Error) => {
-            appToast('error', {err});
+            appToast('error', {err: err.message});
         },
         onSuccess: async () => {
             await storage.remove(saltKey);
@@ -98,7 +98,7 @@ export function useAuthentication() {
         mutationFn: () => credential.authenticate(),
         retry: 0,
         onError: (err: Error) => {
-            appToast('error', {err});
+            appToast('error', {err: err.message});
         },
         onSuccess: async ({userHandle}) => {
             const salt = await storage.get<ArrayBuffer>(saltKey);
