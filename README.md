@@ -5,6 +5,7 @@ This project provides a WebAuthn authentication library with a single main funct
 ## Installation
 
 To install the library, run:
+
 ```bash
 yarn add @adorsys-gis/web-auth
 ```
@@ -14,6 +15,7 @@ yarn add @adorsys-gis/web-auth
 The library exports a single function: `webAuth`.
 
 ### webAuth
+
 ```typescript
 import webAuth from '@adorsys-gis/web-auth';
 
@@ -28,9 +30,44 @@ const { credential, encryption, storage, logger } = webAuth({
 });
 ```
 
+### Example Usage in a React Hook
+
+Here's an example of how to use `webAuth` in a React application:
+
+```typescript
+import webAuth from '@adorsys-gis/web-auth';
+import { LogLevel } from '@adorsys-gis/web-auth-logger';
+
+const rpId = 'example.com';
+const rpName = 'Example RP';
+
+const { credential, encryption, storage } = webAuth({
+  credentialOptions: {
+    rp: {
+      id: rpId,
+      name: rpName,
+    },
+    creationOptions: {
+      authenticatorSelection: {
+        residentKey: 'required',
+        requireResidentKey: true,
+        userVerification: 'required',
+      },
+    },
+  },
+  encryptionOptions: {
+    tagLength: 128,
+  },
+  logLevel: LogLevel.debug,
+});
+```
+
+This example demonstrates initializing `webAuth` with specific options for credential creation and encryption.
+
 ## Configuration
 
 The `webAuth` function takes an options object with the following properties:
+
 - `credentialOptions`: Required. Options for credential creation.
 - `encryptionOptions`: Optional. Options for encryption.
 - `storageOptionType`: Optional. Type of storage to use (default: 'simple').
@@ -40,6 +77,7 @@ The `webAuth` function takes an options object with the following properties:
 ## Returned Object
 
 The `webAuth` function returns an object with four properties:
+
 - `credential`: An instance of `Credential` for WebAuthn operations.
 - `encryption`: An instance of `KeyEncryption` for key management.
 - `storage`: An instance of `KeyStorage` for storing keys.

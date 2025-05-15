@@ -12,12 +12,10 @@ const textType: Record<TypeOptions, string> = {
 };
 
 export function Message({ closeToast, data, toastProps }: ToastContentProps<{ err: string } | { message: string }>) {
-  if (!data) return null;
-
-  const message = 'err' in data ? data.err : data.message;
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
+    if (!data) return;
     const autoCloseDuration = Number(toastProps.autoClose);
     const startTime = Date.now();
 
@@ -25,12 +23,9 @@ export function Message({ closeToast, data, toastProps }: ToastContentProps<{ er
       const currentTime = Date.now();
       const elapsedTime = currentTime - startTime;
 
-      // Calculate progress percentage
       const newProgress = Math.min((elapsedTime / autoCloseDuration) * 100, 100);
-
       setProgress(newProgress);
 
-      // Continue animation until 100%
       if (elapsedTime < autoCloseDuration) {
         requestAnimationFrame(updateProgress);
       } else {
@@ -38,11 +33,14 @@ export function Message({ closeToast, data, toastProps }: ToastContentProps<{ er
       }
     });
 
-    // Cleanup function
     return () => {
       cancelAnimationFrame(animationFrame);
     };
-  }, [closeToast, toastProps.autoClose]);
+  }, [closeToast, toastProps.autoClose, data]);
+
+  if (!data) return null;
+
+  const message = 'err' in data ? data.err : data.message;
 
   return (
     <div className="flex gap-4 items-center justify-center">
@@ -58,7 +56,6 @@ export function Message({ closeToast, data, toastProps }: ToastContentProps<{ er
               '--size': '2rem',
             } as React.CSSProperties
           }
-          aria-valuenow={progress}
           role="progressbar"
         ></div>
 
