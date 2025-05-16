@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "git": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-v",
+        "local:/workspace",
+        "mcp/git"
+      ]
+    },
+    "filesystem": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-v",
+        "local:/workspace",
+        "mcp/filesystem",
+        "/workspace"
+      ]
+    }
+  }
+}

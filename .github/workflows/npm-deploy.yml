@@ -24,10 +24,10 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
       - name: Authenticate with NPM
         run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
@@ -39,7 +39,7 @@ jobs:
           for package in packages/*; do
             if [ -d "$package" ] && [ -f "$package/package.json" ]; then
               cd "$package"
-              npm publish
+              yarn npm publish
               cd ..
             fi
           done

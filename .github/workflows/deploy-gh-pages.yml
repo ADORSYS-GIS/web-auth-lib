@@ -1,25 +1,52 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+
+env:
+  node_version: 23.x
 
 jobs:
-  deploy:
+  build:
+    name: Build Example App
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.node_version }}
+          cache: yarn
+
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
       - name: Build React app
         run: |
           cd examples/web-auth-example
-          yarn install
-          npm run build
+          yarn install --immutable
+          yarn build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-app-build
+          path: examples/web-auth-example/dist
+          retention-days: 1
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: example-app-build
+          path: examples/web-auth-example/dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
