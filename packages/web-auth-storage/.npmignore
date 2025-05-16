@@ -1,0 +1,19 @@
+# Ignore everything by default
+*
+**/*
+
+# Allow package.json (required for npm)
+!package.json
+
+# Allow README for documentation
+!README.md
+
+# Allow compiled output
+!dist/**/*
+
+# Allow type definitions
+!*.d.ts
+
+# Explicitly ignore node_modules even if they somehow match above patterns
+node_modules
+node_modules/**/*
