@@ -1,0 +1,31 @@
+{
+  "name": "@adorsys-gis/web-auth-credential",
+  "version": "1.2.0-rc.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adorsys-gis/web-auth-lib.git",
+    "directory": "packages/web-auth-credential"
+  },
+  "packageManager": "yarn@4.9.1",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && rimraf tsconfig.tsbuildinfo && tsc --build"
+  },
+  "author": {
+    "name": "Adorsys GIS",
+    "url": "https://github.com/adorsys-gis"
+  },
+  "license": "MIT",
+  "description": "Credential packages for the Web Auth lib",
+  "dependencies": {
+    "@adorsys-gis/web-auth-core": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "@types/randombytes": "^2",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,3 +1,8 @@
 node_modules
 dist
 coverage
+
+*.tsbuildinfo
+*.gz
+.idea
+.yarn

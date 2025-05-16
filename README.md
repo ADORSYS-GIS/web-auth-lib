@@ -1,89 +1,99 @@
-# WebAuthn PRF Example
+# WebAuthn Authentication Library
 
-A lightweight TypeScript library that implements WebAuthn with PRF (Pseudo-Random Function) for secure authentication and encryption. This package allows users to register, authenticate, and encrypt/decrypt messages using derived keys.
+This project provides a WebAuthn authentication library with a single main function: `webAuth`.
 
 ## Installation
 
-Install the package using npm:
+To install the library, run:
 
 ```bash
-npm install @adorsys-gis/web-auth-prf
+yarn add @adorsys-gis/web-auth
 ```
 
 ## Usage
 
-### Register a User
+The library exports a single function: `webAuth`.
 
-To register a new user, call the `handleRegister` function:
+### webAuth
 
-```javascript
-import { handleRegister } from "@adorsys-gis/web-auth-prf";
+```typescript
+import webAuth from '@adorsys-gis/web-auth';
 
-document.getElementById("registerBtn").addEventListener("click", async () => {
-  await handleRegister();
+const { credential, encryption, storage, logger } = webAuth({
+  credentialOptions: {
+    // credential options
+  },
+  encryptionOptions: {
+    // encryption options
+  },
+  // other options
 });
 ```
 
-### Authenticate a User
+### Example Usage in a React Application
 
-To authenticate an existing user, call the `handleAuthenticate` function:
+Here's an example of how to use `webAuth` in a React application, demonstrating the usage of `credential`, `encryption`, and `storage`:
 
-```javascript
-import { handleAuthenticate } from "@adorsys-gis/web-auth-prf";
+```typescript
+import webAuth from '@adorsys-gis/web-auth';
+import { LogLevel } from '@adorsys-gis/web-auth-logger';
 
-document
-  .getElementById("authenticateBtn")
-  .addEventListener("click", async () => {
-    await handleAuthenticate();
-  });
-```
+const rpId = 'example.com';
+const rpName = 'Example RP';
 
-### Save and Load Messages
-
-To save and retrieve encrypted messages, use the `saveMessage` and `loadMessages` functions:
-
-```javascript
-import { saveMessage } from "@adorsys-gis/web-auth-prf";
-
-document
-  .getElementById("saveMessageBtn")
-  .addEventListener("click", async () => {
-    await saveMessage();
-  });
-```
-
-### Logout
-
-To log out and clear stored credentials and messages, use the `handleLogout` function:
-
-```javascript
-import { handleLogout } from "@adorsys-gis/web-auth-prf";
-
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-  await handleLogout();
+const { credential, encryption, storage } = webAuth({
+  credentialOptions: {
+    rp: {
+      id: rpId,
+      name: rpName,
+    },
+    creationOptions: {
+      authenticatorSelection: {
+        residentKey: 'required',
+        requireResidentKey: true,
+        userVerification: 'required',
+      },
+    },
+  },
+  encryptionOptions: {
+    tagLength: 128,
+  },
+  logLevel: LogLevel.debug,
 });
+
+// Using the credential interface
+const register = async (params: RegisterOption) => {
+  return credential.register(params);
+};
+
+// Using the encryption interface
+const generateKey = async (userHandle: ArrayBuffer, salt: Uint8Array) => {
+  return encryption.generateKeyFromUserId(userHandle, salt);
+};
+
+// Using the storage interface
+const saveSalt = async (saltKey: string, salt: ArrayBuffer) => {
+  await storage.save(saltKey, { data: salt });
+};
 ```
 
-## API
+This example demonstrates initializing `webAuth` with specific options for credential creation and encryption, and showcases how to use the `credential`, `encryption`, and `storage` interfaces.
 
-### `handleRegister()`
+## Configuration
 
-Registers a new user with WebAuthn and securely stores authentication credentials.
+The `webAuth` function takes an options object with the following properties:
 
-### `handleAuthenticate()`
+- `credentialOptions`: Required. Options for credential creation.
+- `encryptionOptions`: Optional. Options for encryption.
+- `storageOptionType`: Optional. Type of storage to use (default: 'simple').
+- `loggerType`: Optional. Type of logger to use (default: 'level').
+- `logLevel`: Optional. Log level (default: LogLevel.log).
 
-Authenticates a registered user using WebAuthn credentials.
+## Returned Object
 
-### `saveMessage()`
+The `webAuth` function returns an object with four properties:
 
-Encrypts and saves a message using the derived encryption key.
-
-### `loadMessages()`
-
-Loads and decrypts saved messages.
-
-### `handleLogout()`
-
-Clears stored credentials and messages, effectively logging out the user.
-
-For more details, check out the official WebAuthn documentation: [MDN WebAuthn Docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API).
+- `credential`: An instance of `Credential` for WebAuthn operations.
+- `encryption`: An instance of `KeyEncryption` for key management.
+- `storage`: An instance of `KeyStorage` for storing keys.
+- `logger`: An instance of `Logger` for logging.

@@ -4,7 +4,7 @@ on:
   pull_request:
 
 env:
-  node_version: 20.x
+  node_version: 23.x
 
 jobs:
   style:
@@ -19,18 +19,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.node_version }}
+          cache: yarn
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Check formatting
-        run: npm run format:check
+        run: yarn prettier --check .
 
       - name: Lint code
-        run: npm run lint
+        run: yarn workspace web-auth-example lint
 
   build_and_test:
-    name: Build and Test
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -41,10 +42,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.node_version }}
-          cache: npm
+          cache: yarn
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Build
-        run: npm run build
+        run: yarn build
