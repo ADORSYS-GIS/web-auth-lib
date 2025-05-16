@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { prfContext } from '../components/context/prf.context.tsx';
+import { prfContext, PrfState } from '../components/context/prf.context.tsx';
 
-export function useCredentialUserID() {
+export function useCredentialUserID(): PrfState {
   return useContext(prfContext);
 }
