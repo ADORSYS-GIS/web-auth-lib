@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-interface PrfState {
+export interface PrfState {
   credentialUserId: string;
   derivedKey?: CryptoKey;
   setCredentialUserIId: (prf: string) => void;

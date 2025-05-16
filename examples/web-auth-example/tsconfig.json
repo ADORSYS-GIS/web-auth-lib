@@ -1,5 +1,27 @@
 {
   "extends": "../../tsconfig.base.json",
-  "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+  "compilerOptions": {
+    "paths": {
+      "@adorsys-gis/web-auth": ["../../packages/web-auth/src"],
+      "@adorsys-gis/web-auth-core": ["../../packages/web-auth-core/src"],
+      "@adorsys-gis/web-auth-credential": ["../../packages/web-auth-credential/src"],
+      "@adorsys-gis/web-auth-encryption": ["../../packages/web-auth-encryption/src"],
+      "@adorsys-gis/web-auth-logger": ["../../packages/web-auth-logger/src"],
+      "@adorsys-gis/web-auth-storage": ["../../packages/web-auth-storage/src"]
+    },
+    "jsx": "react-jsx",
+    "types": ["vite/client"],
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../../packages/web-auth" },
+    { "path": "../../packages/web-auth-core" },
+    { "path": "../../packages/web-auth-credential" },
+    { "path": "../../packages/web-auth-encryption" },
+    { "path": "../../packages/web-auth-logger" },
+    { "path": "../../packages/web-auth-storage" }
+  ]
 }
