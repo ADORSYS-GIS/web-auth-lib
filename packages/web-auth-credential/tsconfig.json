@@ -3,6 +3,10 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist",
-    "moduleResolution": "Node"
-  }
+    "moduleResolution": "Node",
+    "composite": true
+  },
+  "references": [
+    { "path": "../web-auth-core" }
+  ]
 }
