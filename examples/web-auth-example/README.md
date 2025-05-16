@@ -9,6 +9,7 @@ This is an example application demonstrating the usage of the web-auth-lib with 
 ## Features
 
 This example app demonstrates:
+
 - User registration with secure credential storage
 - Authentication using modern web standards
 - Logout functionality
@@ -25,17 +26,20 @@ This example app demonstrates:
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/ADORSYS-GIS/web-auth-lib.git
 cd web-auth-lib
 ```
 
 2. Install dependencies:
+
 ```bash
 yarn
 ```
 
 3. Build the packages:
+
 ```bash
 yarn build
 ```

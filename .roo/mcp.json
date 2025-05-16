@@ -2,26 +2,15 @@
   "mcpServers": {
     "git": {
       "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-v",
-        "local:/workspace",
-        "mcp/git"
-      ]
+      "args": ["run", "-i", "--rm", "-v", "local:/workspace", "mcp/git"],
+      "disabled": true,
+      "alwaysAllow": []
     },
     "filesystem": {
       "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-v",
-        "local:/workspace",
-        "mcp/filesystem",
-        "/workspace"
-      ]
+      "args": ["run", "-i", "--rm", "-v", "local:/workspace", "mcp/filesystem", "/workspace"],
+      "disabled": true,
+      "alwaysAllow": []
     }
   }
 }
