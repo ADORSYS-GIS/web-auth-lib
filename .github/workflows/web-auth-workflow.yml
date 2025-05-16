@@ -239,12 +239,15 @@ jobs:
           for package in packages/*; do
             if [ -d "$package" ] && [ -f "$package/package.json" ]; then
               cd "$package"
-              yarn npm publish
+              npm publish --access public
               cd ..
             fi
           done
 
   deploy-gh-pages:
+    permissions:
+      contents: read
+      packages: write
     name: Deploy to GitHub Pages
     needs: build-example
     runs-on: ubuntu-latest

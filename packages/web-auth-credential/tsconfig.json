@@ -6,7 +6,5 @@
     "moduleResolution": "Node",
     "composite": true
   },
-  "references": [
-    { "path": "../web-auth-core" }
-  ]
+  "references": [{ "path": "../web-auth-core" }]
 }
