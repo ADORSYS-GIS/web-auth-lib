@@ -32,7 +32,7 @@ jobs:
       - name: Authenticate with NPM
         run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.WEB_AUTH_NPM_TOKEN }}
 
       - name: Publish packages
         run: |

@@ -11,7 +11,8 @@ export interface WebAuthOption {
   loggerType?: LoggerFactoryOptions['type'];
 
   /**
-   * Ignored if
+   * The log level to use for the logger.
+   * This setting is ignored if a custom logger is provided through loggerType.
    */
   logLevel?: LogLevel;
 }
