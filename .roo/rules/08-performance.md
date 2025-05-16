@@ -1,0 +1,10 @@
+- Code-split routes and large components using dynamic imports
+- Optimize images and suggest next-gen formats (WebP, AVIF)
+- Use performance monitoring tools like Lighthouse or Web Vitals
+- Minimize unnecessary re-renders with proper dependency arrays in hooks
+- Recommend lazy loading for below-the-fold content
+- Suggest using performance profiler to identify bottlenecks
+- Bundle size should be monitored and kept minimal
+- Use windowing/virtualization for long lists (react-window, react-virtualized)
+- Recommend HTTP/2, caching strategies, and CDN usage for assets
+- Suggest preload/prefetch for critical resources

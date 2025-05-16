@@ -1,0 +1,9 @@
+- Use typed API clients whenever possible (suggest OpenAPI/Swagger code generation)
+- Implement proper error handling for all API calls
+- Cache API results when appropriate using React Query or similar solutions
+- Include loading and error states for all API-dependent components
+- Implement retry logic for unreliable API endpoints
+- Suggest using React Suspense when applicable for data fetching
+- Authentication tokens should be managed securely
+- Consider offline capabilities and graceful degradation
+- Log API errors with appropriate context for debugging

@@ -1,0 +1,10 @@
+- All components should meet WCAG 2.1 AA standards at minimum
+- Semantic HTML elements should be preferred over generic divs and spans
+- All interactive elements must be keyboard accessible
+- Ensure proper contrast ratios for text content
+- Images must have appropriate alt text
+- Suggest aria attributes when appropriate (but not overused)
+- Form elements should have associated labels
+- Dynamic content changes should be announced to screen readers
+- Recommend automated accessibility testing in CI pipeline
+- Suggest running lighthouse or axe for accessibility audits

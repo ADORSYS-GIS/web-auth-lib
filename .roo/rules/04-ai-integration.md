@@ -1,0 +1,9 @@
+- AI models should suggest following project-specific patterns found in existing code
+- AI-generated code should include appropriate error handling
+- When generating functions, recommend adding unit tests as well
+- Respect the established folder structure and code organization of the project
+- Include TypeScript types for all AI-generated code
+- When suggesting new libraries, also provide notes on bundle size impact
+- Generated React hooks should follow the React hooks rules
+- Always check and suggest optimizations for AI-generated components
+- Include proper JSDoc comments in generated code
