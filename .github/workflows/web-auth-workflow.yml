@@ -116,7 +116,15 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Build packages
-        run: yarn build
+        run: |
+          yarn workspace @adorsys-gis/web-auth-core build
+          yarn workspace @adorsys-gis/web-auth-credential build
+          yarn workspace @adorsys-gis/web-auth-encryption build
+          yarn workspace @adorsys-gis/web-auth-logger build
+          yarn workspace @adorsys-gis/web-auth-storage build
+          yarn workspace @adorsys-gis/web-auth build
+
+          yarn workspace web-auth-example build
 
       # Cache the build output for deployment jobs
       - name: Cache build output
