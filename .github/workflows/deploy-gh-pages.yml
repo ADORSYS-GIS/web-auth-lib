@@ -8,18 +8,20 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Install dependencies and build all packages
+        run: |
+          yarn install
+          yarn workspaces foreach run build
 
-      - name: Build React app
+      - name: Build example app
         run: |
           cd examples/web-auth-example
-          yarn install
-          npm run build
+          yarn build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
