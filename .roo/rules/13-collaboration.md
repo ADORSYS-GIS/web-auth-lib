@@ -1,0 +1,9 @@
+- Commit messages should follow conventional commits format (feat:, fix:, docs:, etc.)
+- Pull requests should include clear descriptions and be of manageable size
+- Suggest creating focused feature branches with descriptive names
+- Always run tests locally before pushing code
+- Document breaking changes clearly in changelogs and version updates
+- Peer reviews should focus on business logic, performance, and maintainability
+- Use feature flags for deploying work-in-progress features
+- Keep internationalization in mind from the beginning
+- Suggest automatic issue linking in commits and PRs

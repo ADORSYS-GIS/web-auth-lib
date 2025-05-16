@@ -1,0 +1,9 @@
+- All public functions, components, and hooks should have JSDoc comments
+- README.md should be maintained with up-to-date setup and usage instructions
+- Complex algorithms or business logic should be explained with inline comments
+- Suggest using automatic documentation generators like Storybook for UI components
+- Code examples should be included for reusable hooks and utilities
+- API integration points should be well-documented with expected request/response formats
+- When AI generates complex logic, it should explain the approach in comments
+- Document known limitations or edge cases of implemented features
+- Changelogs should be maintained for significant updates

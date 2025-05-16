@@ -1,0 +1,266 @@
+name: Web Auth CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  NODE_VERSION: 23.x
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Proper Yarn Berry caching for node-modules linker
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      # Cache node_modules for subsequent jobs
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+  lint:
+    name: Lint and Format
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Restore cached dependencies
+      - name: Restore Yarn cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Check formatting
+        run: yarn prettier --check .
+
+      - name: Lint code
+        run: yarn workspace web-auth-example lint
+
+  build:
+    name: Build Packages
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Restore cached dependencies
+      - name: Restore Yarn cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Build packages
+        run: |
+          yarn workspace @adorsys-gis/web-auth-core build
+          yarn workspace @adorsys-gis/web-auth-credential build
+          yarn workspace @adorsys-gis/web-auth-encryption build
+          yarn workspace @adorsys-gis/web-auth-logger build
+          yarn workspace @adorsys-gis/web-auth-storage build
+          yarn workspace @adorsys-gis/web-auth build
+
+          yarn workspace web-auth-example build
+
+      # Cache the build output for deployment jobs
+      - name: Cache build output
+        uses: actions/cache@v4
+        with:
+          path: |
+            packages/*/dist
+            packages/*/lib
+          key: ${{ runner.os }}-build-${{ github.sha }}
+
+  build-example:
+    name: Build Example App
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Restore cached dependencies
+      - name: Restore Yarn cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build output
+        uses: actions/cache@v4
+        with:
+          path: |
+            packages/*/dist
+            packages/*/lib
+          key: ${{ runner.os }}-build-${{ github.sha }}
+
+      - name: Build example app
+        run: |
+          cd examples/web-auth-example
+          yarn build
+
+      - name: Upload example app build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-app-build
+          path: examples/web-auth-example/dist
+          retention-days: 1
+
+  deploy-npm:
+    name: Deploy to NPM
+    needs: [lint, build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org/
+
+      # Restore cached dependencies
+      - name: Restore Yarn cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore build output
+        uses: actions/cache@v4
+        with:
+          path: |
+            packages/*/dist
+            packages/*/lib
+          key: ${{ runner.os }}-build-${{ github.sha }}
+
+      - name: Authenticate with NPM
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.WEB_AUTH_NPM_TOKEN }}
+
+      - name: Publish packages
+        run: |
+          for package in packages/*; do
+            if [ -d "$package" ] && [ -f "$package/package.json" ]; then
+              cd "$package"
+              yarn npm publish
+              cd ..
+            fi
+          done
+
+  deploy-gh-pages:
+    name: Deploy to GitHub Pages
+    needs: build-example
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download example app build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: example-app-build
+          path: examples/web-auth-example/dist
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: examples/web-auth-example/dist

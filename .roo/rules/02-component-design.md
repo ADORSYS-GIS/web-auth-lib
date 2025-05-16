@@ -1,0 +1,9 @@
+- Suggest organizing components by feature/domain rather than by component type
+- Component props should always have TypeScript interfaces or type aliases
+- Recommend extracting reusable UI components to avoid duplication
+- Suggest memoization (React.memo, useMemo, useCallback) for performance-critical components
+- Props should have default values where appropriate
+- Destructure props at the component function parameter level
+- Components with many props should consider using compound components or render props pattern
+- Always suggest adding JSDoc comments for component props
+- Component files should export only one component as default (except for tightly related subcomponents)

@@ -1,0 +1,9 @@
+- For simple applications, recommend React's built-in state management (useState, useReducer)
+- For medium to large applications, suggest established libraries like Redux Toolkit, Zustand, or Jotai
+- Encourage using context API for theming, user auth, and other app-wide concerns
+- State should be normalized when dealing with relational data
+- State selectors should be memoized to prevent unnecessary re-renders
+- Suggest using React Query or SWR for server state management
+- Recommend separating UI state from domain/business state
+- Emphasize immutability when working with state
+- For form state, recommend libraries like React Hook Form or Formik
