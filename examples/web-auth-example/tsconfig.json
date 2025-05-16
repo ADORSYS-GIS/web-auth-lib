@@ -1,8 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
-    "baseUrl": ".",
     "paths": {
       "@adorsys-gis/web-auth": ["../../packages/web-auth/src"],
       "@adorsys-gis/web-auth-core": ["../../packages/web-auth-core/src"],
@@ -13,20 +11,9 @@
     },
     "jsx": "react-jsx",
     "types": ["vite/client"],
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "noEmit": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
   "references": [
