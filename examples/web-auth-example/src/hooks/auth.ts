@@ -7,7 +7,7 @@ import { encode } from 'base64-arraybuffer';
 import { appToast } from './toast';
 import { useCallback } from 'react';
 
-const rpId = import.meta.env.VITE_RP_ID || 'example.com';
+const rpId = import.meta.env.VITE_RP_ID || 'adorsys-gis.github.io';
 const rpName = import.meta.env.VITE_RP_NAME || 'Example RP';
 
 const { credential, encryption, storage } = webAuth({
