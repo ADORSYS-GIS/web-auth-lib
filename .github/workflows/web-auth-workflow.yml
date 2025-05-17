@@ -230,7 +230,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ github.sha }}
 
       - name: Authenticate with NPM
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.WEB_AUTH_NPM_TOKEN }}
 
