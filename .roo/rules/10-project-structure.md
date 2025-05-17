@@ -1,9 +1,0 @@
-- Organize code by feature/domain rather than by technical role
-- Maintain a clear separation between UI components and business logic
-- Use barrel files (index.ts) for cleaner imports
-- Keep component files focused on single responsibility
-- Structure directories to minimize import complexity (avoid deeply nested imports)
-- Shared components should reside in a dedicated directory
-- Environment-specific configuration should be externalized
-- Define clear boundaries between application layers
-- Keep related files close to each other

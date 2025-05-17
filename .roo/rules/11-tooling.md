@@ -1,9 +1,0 @@
-- Recommend using package managers with lock files (yarn, pnpm, npm)
-- Suggest Git hooks for pre-commit formatting and linting
-- CI/CD pipeline should include linting, type checking, and testing
-- Use Docker for consistent development environments
-- Suggest webpack/Vite/other bundler optimizations
-- Implement progressive enhancement where possible
-- Recommend modern build tools like SWC or esbuild for faster builds
-- Use TypeScript's project references for monorepos
-- Implement proper source maps for debugging

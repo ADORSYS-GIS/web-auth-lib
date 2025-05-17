@@ -1,9 +1,0 @@
-- Always escape user-generated content to prevent XSS
-- Suggest Content Security Policy implementation
-- Never store sensitive information in local storage or client-side code
-- Use HTTPS for all API calls
-- Implement proper authentication and authorization checks
-- Sanitize all inputs, especially those used in DOM manipulation
-- Follow the principle of least privilege for API requests
-- Recommend security scanning tools for dependencies
-- Keep dependencies updated to avoid known vulnerabilities

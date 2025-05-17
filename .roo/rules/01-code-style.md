@@ -1,9 +1,0 @@
-- All TypeScript/JavaScript code should be formatted using Prettier and ESLint with appropriate configs
-- Always suggest TypeScript over JavaScript for new projects and features
-- Use modern ES6+ syntax (arrow functions, destructuring, etc.) consistently
-- Follow naming conventions: camelCase for variables/functions, PascalCase for components/classes, UPPER_SNAKE_CASE for constants
-- Organize imports in groups: external libraries first, followed by internal modules, then relative imports
-- Avoid any/unknown types in TypeScript when possible, suggest proper type definitions
-- Prefer functional components over class components in React
-- Encourage use of optional chaining and nullish coalescing operators
-- Suggest typing for all function parameters and return values
