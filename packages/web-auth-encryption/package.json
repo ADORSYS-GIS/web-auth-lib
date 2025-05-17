@@ -26,8 +26,5 @@
   },
   "dependencies": {
     "@adorsys-gis/web-auth-core": "workspace:^"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
