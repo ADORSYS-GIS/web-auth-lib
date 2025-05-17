@@ -236,6 +236,7 @@ jobs:
 
       - name: Publish packages
         run: |
+          npm whoami
           for package in packages/*; do
             if [ -d "$package" ] && [ -f "$package/package.json" ]; then
               cd "$package"

@@ -29,5 +29,8 @@
     "@adorsys-gis/web-auth-credential": "workspace:^",
     "@adorsys-gis/web-auth-encryption": "workspace:^",
     "@adorsys-gis/web-auth-logger": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
