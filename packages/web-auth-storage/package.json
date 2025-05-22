@@ -24,8 +24,10 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
+  "peerDependencies": {
+    "@adorsys-gis/web-auth-core": "^1.2.0-rc.1"
+  },
   "dependencies": {
-    "@adorsys-gis/web-auth-core": "workspace:^",
     "base64-arraybuffer": "^1.0.2"
   }
 }
