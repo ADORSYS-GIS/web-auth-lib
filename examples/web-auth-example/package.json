@@ -10,9 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@adorsys-gis/web-auth": "workspace:^",
-    "@adorsys-gis/web-auth-core": "workspace:^",
-    "@adorsys-gis/web-auth-logger": "workspace:^",
+    "@adorsys-gis/web-auth": "1.2.0",
+    "@adorsys-gis/web-auth-core": "1.2.0",
+    "@adorsys-gis/web-auth-credential": "1.2.0",
+    "@adorsys-gis/web-auth-logger": "1.2.0",
     "@tanstack/react-query": "^5.76.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
