@@ -19,7 +19,7 @@
   "license": "MIT",
   "description": "Credential packages for the Web Auth lib",
   "dependencies": {
-    "@adorsys-gis/web-auth-core": "workspace:^"
+    "@adorsys-gis/web-auth-core": "1.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.17",

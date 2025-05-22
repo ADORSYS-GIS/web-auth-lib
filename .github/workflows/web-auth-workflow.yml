@@ -234,16 +234,19 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish packages
+      - name: Run Changeset Version (replace workspace protocol)
+        run: yarn changeset version
+
+      - name: Commit version updates
         run: |
-          npm whoami
-          for package in packages/*; do
-            if [ -d "$package" ] && [ -f "$package/package.json" ]; then
-              cd "$package"
-              npm publish --access public
-              cd ..
-            fi
-          done
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "ci: version packages before publish"
+          git push || echo "No changes to commit"
+
+      - name: Publish packages
+        run: yarn changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
