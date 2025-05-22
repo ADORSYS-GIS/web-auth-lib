@@ -5,7 +5,7 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@adorsys-gis/web-auth-core@workspace:^, @adorsys-gis/web-auth-core@workspace:packages/web-auth-core":
+"@adorsys-gis/web-auth-core@npm:1.2.0, @adorsys-gis/web-auth-core@workspace:packages/web-auth-core":
   version: 0.0.0-use.local
   resolution: "@adorsys-gis/web-auth-core@workspace:packages/web-auth-core"
   dependencies:
@@ -16,11 +16,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@adorsys-gis/web-auth-credential@workspace:^, @adorsys-gis/web-auth-credential@workspace:packages/web-auth-credential":
+"@adorsys-gis/web-auth-credential@npm:1.2.0, @adorsys-gis/web-auth-credential@workspace:packages/web-auth-credential":
   version: 0.0.0-use.local
   resolution: "@adorsys-gis/web-auth-credential@workspace:packages/web-auth-credential"
   dependencies:
-    "@adorsys-gis/web-auth-core": "workspace:^"
+    "@adorsys-gis/web-auth-core": "npm:1.2.0"
     "@types/node": "npm:^22.15.17"
     "@types/randombytes": "npm:^2"
     rimraf: "npm:^6.0.1"
@@ -29,11 +29,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@adorsys-gis/web-auth-encryption@workspace:^, @adorsys-gis/web-auth-encryption@workspace:packages/web-auth-encryption":
+"@adorsys-gis/web-auth-encryption@npm:1.2.0, @adorsys-gis/web-auth-encryption@workspace:packages/web-auth-encryption":
   version: 0.0.0-use.local
   resolution: "@adorsys-gis/web-auth-encryption@workspace:packages/web-auth-encryption"
   dependencies:
-    "@adorsys-gis/web-auth-core": "workspace:^"
+    "@adorsys-gis/web-auth-core": "npm:1.2.0"
     "@types/node": "npm:^22.15.17"
     rimraf: "npm:^6.0.1"
     ts-node: "npm:^10.9.2"
@@ -53,11 +53,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@adorsys-gis/web-auth-logger@workspace:^, @adorsys-gis/web-auth-logger@workspace:packages/web-auth-logger":
+"@adorsys-gis/web-auth-logger@npm:1.2.0, @adorsys-gis/web-auth-logger@workspace:packages/web-auth-logger":
   version: 0.0.0-use.local
   resolution: "@adorsys-gis/web-auth-logger@workspace:packages/web-auth-logger"
   dependencies:
-    "@adorsys-gis/web-auth-core": "workspace:^"
+    "@adorsys-gis/web-auth-core": "npm:1.2.0"
     "@types/node": "npm:^22.15.17"
     rimraf: "npm:^6.0.1"
     ts-node: "npm:^10.9.2"
@@ -69,7 +69,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@adorsys-gis/web-auth-storage@workspace:packages/web-auth-storage"
   dependencies:
-    "@adorsys-gis/web-auth-core": "workspace:^"
+    "@adorsys-gis/web-auth-core": "npm:1.2.0"
     "@types/node": "npm:^22.15.17"
     base64-arraybuffer: "npm:^1.0.2"
     rimraf: "npm:^6.0.1"
@@ -82,10 +82,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@adorsys-gis/web-auth@workspace:packages/web-auth"
   dependencies:
-    "@adorsys-gis/web-auth-core": "workspace:^"
-    "@adorsys-gis/web-auth-credential": "workspace:^"
-    "@adorsys-gis/web-auth-encryption": "workspace:^"
-    "@adorsys-gis/web-auth-logger": "workspace:^"
+    "@adorsys-gis/web-auth-core": "npm:1.2.0"
+    "@adorsys-gis/web-auth-credential": "npm:1.2.0"
+    "@adorsys-gis/web-auth-encryption": "npm:1.2.0"
+    "@adorsys-gis/web-auth-logger": "npm:1.2.0"
     "@types/node": "npm:^22.15.17"
     rimraf: "npm:^6.0.1"
     ts-node: "npm:^10.9.2"
@@ -681,11 +681,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^22.15.17":
-  version: 22.15.17
-  resolution: "@types/node@npm:22.15.17"
+  version: 22.15.21
+  resolution: "@types/node@npm:22.15.21"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10c0/fb92aa10b628683c5b965749f955bc2322485ecb0ea6c2f4cae5f2c7537a16834607e67083a9e9281faaae8d7dee9ada8d6a5c0de9a52c17d82912ef00c0fdd4
+  checksum: 10c0/f092bbccda2131c2b2c8f720338080aa0ef1d928f5f1062c03954a4f7dafa7ee3ed29bc3e51bd4e2584473b3d943c637a2b39ad7174898970818270187cf10c1
   languageName: node
   linkType: hard
 

@@ -25,7 +25,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@adorsys-gis/web-auth-core": "workspace:^",
+    "@adorsys-gis/web-auth-core": "1.2.0",
     "base64-arraybuffer": "^1.0.2"
   }
 }
