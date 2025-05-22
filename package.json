@@ -10,6 +10,7 @@
     "url": "git+https://github.com/adorsys-gis/web-auth-lib.git"
   },
   "workspaces": [
+    "examples/*",
     "packages/*"
   ],
   "scripts": {
