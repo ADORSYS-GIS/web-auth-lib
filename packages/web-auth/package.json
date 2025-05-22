@@ -1,6 +1,6 @@
 {
   "name": "@adorsys-gis/web-auth",
-  "version": "1.2.0-rc.1",
+  "version": "1.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adorsys-gis/web-auth-lib.git",
@@ -25,9 +25,9 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@adorsys-gis/web-auth-core": "1.2.0",
-    "@adorsys-gis/web-auth-credential": "1.2.0",
-    "@adorsys-gis/web-auth-encryption": "1.2.0",
-    "@adorsys-gis/web-auth-logger": "1.2.0"
+    "@adorsys-gis/web-auth-core": "workspace:^",
+    "@adorsys-gis/web-auth-credential": "workspace:^",
+    "@adorsys-gis/web-auth-encryption": "workspace:^",
+    "@adorsys-gis/web-auth-logger": "workspace:^"
   }
 }
