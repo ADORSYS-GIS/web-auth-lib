@@ -234,16 +234,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Run Changeset Version (replace workspace protocol)
+        run: yarn changeset version
+
       - name: Publish packages
-        run: |
-          npm whoami
-          for package in packages/*; do
-            if [ -d "$package" ] && [ -f "$package/package.json" ]; then
-              cd "$package"
-              npm publish --access public
-              cd ..
-            fi
-          done
+        run: yarn changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
